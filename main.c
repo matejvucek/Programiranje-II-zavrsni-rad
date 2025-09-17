@@ -11,7 +11,7 @@ int main() {
     Pitanje pitanja[MAX_PITANJA];
     int broj = ucitajPitanja(pitanja, "data/pitanja.txt");
     if (broj == 0) {
-        printf("Greška pri učitavanju pitanja.\n");
+        printf("Greska pri ucitavanju pitanja.\n");
         return 1;
     }
 
@@ -31,7 +31,7 @@ int main() {
         printf("9. Izlaz\n");
         printf("Izbor: ");
         if (scanf("%d", &izbor) != 1) {
-            printf("Greška pri unosu.\n");
+            printf("Greska pri unosu.\n");
             return 1;
         }
         getchar(); // proguta Enter
@@ -108,3 +108,4 @@ int main() {
 
     return 0;
 }
+
