@@ -1,0 +1,8 @@
+=== Kviz igraca: MATA ===
+1. Petar Svacic je bio posljednji narodni kralj Hrvatske? | Vaš odgovor: C | Toèno: C | Tocno
+2. U kojem gradu se nalazi amfiteatar iz rimskog doba. | Vaš odgovor: A | Toèno: A | Tocno
+3. Kraljevina SHS je bila zajednica kojih drzava? | Vaš odgovor: A | Toèno: A | Tocno
+4. U kojem stoljecu je vladao kralj Dmitar Zvonimir? | Vaš odgovor: C | Toèno: B | Netocno
+5. Kako se zvala stara drzava Hrvata? | Vaš odgovor: A | Toèno: A | Tocno
+Rezultat: 4/5 za MATA (prosjek: 0.80)
+
