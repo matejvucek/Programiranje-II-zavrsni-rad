@@ -34,7 +34,7 @@ int main() {
             printf("Greska pri unosu.\n");
             return 1;
         }
-        getchar(); // proguta Enter
+        getchar();
 
         switch ((IzbornikOpcije)izbor) {
         case DODAJ_KORISNIKA:
@@ -108,4 +108,5 @@ int main() {
 
     return 0;
 }
+
 
