@@ -8,11 +8,10 @@
 
 int brojacKvizova = 0;
 
-// ======= UČITAVANJE PITANJA =======
 int ucitajPitanja(Pitanje pitanja[], const char* imeDatoteke) {
     FILE* fp = fopen(imeDatoteke, "r");
     if (!fp) {
-        perror("Greška pri otvaranju pitanja.txt");
+        perror("Greska pri otvaranju pitanja.txt");
         return 0;
     }
 
@@ -38,7 +37,6 @@ int ucitajPitanja(Pitanje pitanja[], const char* imeDatoteke) {
     return count;
 }
 
-// ======= RANDOM ODABIR PITANJA =======
 void odaberiNasumicna(int indeks[], int max) {
     int oznake[MAX_PITANJA] = { 0 }, brojac = 0;
     while (brojac < ODABRANA_PITANJA) {
@@ -50,7 +48,6 @@ void odaberiNasumicna(int indeks[], int max) {
     }
 }
 
-// ======= CRUD KORISNIKA =======
 int postojiKorisnik(const char* ime) {
     FILE* f = fopen("data/korisnici.txt", "r");
     if (!f) return 0;
@@ -75,28 +72,28 @@ void dodajKorisnika(const char* ime) {
     }
 
     if (postojiKorisnik(ime)) {
-        printf("Korisnik '%s' već postoji.\n", ime);
+        printf("Korisnik '%s' vec postoji.\n", ime);
         return;
     }
 
     FILE* f = fopen("data/korisnici.txt", "a");
     if (!f) {
-        perror("Greška pri otvaranju korisnici.txt za pisanje");
+        perror("Greska pri otvaranju korisnici.txt za pisanje");
         return;
     }
 
     fprintf(f, "%s\n", ime);
     fclose(f);
 
-    printf("Korisnik '%s' uspješno dodan.\n", ime);
+    printf("Korisnik '%s' uspjesno dodan.\n", ime);
 }
 
 void obrisiKorisnika(const char* ime) {
     FILE* f = fopen("data/korisnici.txt", "r");
-    if (!f) { perror("Greška pri otvaranju korisnici.txt"); return; }
+    if (!f) { perror("Greska pri otvaranju korisnici.txt"); return; }
 
     FILE* temp = fopen("data/temp.txt", "w");
-    if (!temp) { perror("Greška pri otvaranju temp.txt"); fclose(f); return; }
+    if (!temp) { perror("Greska pri otvaranju temp.txt"); fclose(f); return; }
 
     char linija[50];
     int pronadjen = 0;
@@ -114,20 +111,20 @@ void obrisiKorisnika(const char* ime) {
     fclose(f); fclose(temp);
     remove("data/korisnici.txt");
     if (rename("data/temp.txt", "data/korisnici.txt") != 0) {
-        perror("Greška pri preimenovanju datoteke");
+        perror("Greska pri preimenovanju datoteke");
     }
 
     if (pronadjen)
         printf("Korisnik '%s' obrisan.\n", ime);
     else
-        printf("Korisnik '%s' nije pronađen.\n", ime);
+        printf("Korisnik '%s' nije pronaden.\n", ime);
 }
 
 void azurirajKorisnika(const char* staroIme, const char* novoIme) {
     FILE* f = fopen("data/korisnici.txt", "r");
-    if (!f) { perror("Greška pri otvaranju korisnici.txt"); return; }
+    if (!f) { perror("Greska pri otvaranju korisnici.txt"); return; }
     FILE* temp = fopen("data/temp.txt", "w");
-    if (!temp) { perror("Greška pri otvaranju temp.txt"); fclose(f); return; }
+    if (!temp) { perror("Greska pri otvaranju temp.txt"); fclose(f); return; }
 
     char linija[50];
     int pronadjen = 0;
@@ -146,11 +143,11 @@ void azurirajKorisnika(const char* staroIme, const char* novoIme) {
     fclose(f); fclose(temp);
     remove("data/korisnici.txt");
     if (rename("data/temp.txt", "data/korisnici.txt") != 0) {
-        perror("Greška pri preimenovanju datoteke");
+        perror("Greska pri preimenovanju datoteke");
     }
 
     if (pronadjen) printf("Ime korisnika promijenjeno.\n");
-    else printf("Korisnik '%s' nije pronađen.\n", staroIme);
+    else printf("Korisnik '%s' nije pronaden.\n", staroIme);
 }
 
 // ======= SORTIRANJE I ISPIS KORISNIKA =======
@@ -162,7 +159,7 @@ int usporediKorisnike(const void* a, const void* b) {
 
 void prikaziKorisnike() {
     FILE* f = fopen("data/korisnici.txt", "r");
-    if (!f) { perror("Greška pri otvaranju korisnici.txt"); return; }
+    if (!f) { perror("Greska pri otvaranju korisnici.txt"); return; }
 
     char** korisnici = NULL;
     int n = 0;
@@ -173,7 +170,7 @@ void prikaziKorisnike() {
 
         char** tmp = realloc(korisnici, (n + 1) * sizeof(char*));
         if (!tmp) {
-            perror("Greška realloc");
+            perror("Greska realloc");
             for (int i = 0; i < n; i++) free(korisnici[i]);
             free(korisnici);
             fclose(f);
@@ -183,7 +180,7 @@ void prikaziKorisnike() {
 
         korisnici[n] = malloc(strlen(linija) + 1);
         if (!korisnici[n]) {
-            perror("Greška malloc");
+            perror("Greska malloc");
             for (int i = 0; i < n; i++) free(korisnici[i]);
             free(korisnici);
             fclose(f);
@@ -206,7 +203,6 @@ void prikaziKorisnike() {
     free(korisnici);
 }
 
-// ======= PRETRAŽIVANJE KORISNIKA =======
 void traziKorisnika(const char* ime) {
     if (!ime || strlen(ime) == 0) {
         printf("Neispravno ime za pretragu.\n");
@@ -214,7 +210,7 @@ void traziKorisnika(const char* ime) {
     }
 
     FILE* f = fopen("data/korisnici.txt", "r");
-    if (!f) { perror("Greška pri otvaranju data/korisnici.txt"); return; }
+    if (!f) { perror("Greska pri otvaranju data/korisnici.txt"); return; }
 
     char linija[50];
     int pronadjen = 0;
@@ -228,12 +224,11 @@ void traziKorisnika(const char* ime) {
     fclose(f);
 
     if (pronadjen)
-        printf("Korisnik '%s' pronađen.\n", ime);
+        printf("Korisnik '%s' pronaden.\n", ime);
     else
-        printf("Korisnik '%s' nije pronađen.\n", ime);
+        printf("Korisnik '%s' nije pronaden.\n", ime);
 }
 
-// ======= KVIZ =======
 void pokreniKviz(Pitanje pitanja[], int brojPitanja, const char* imeIgraca) {
     brojacKvizova++;
 
@@ -241,7 +236,7 @@ void pokreniKviz(Pitanje pitanja[], int brojPitanja, const char* imeIgraca) {
     odaberiNasumicna(odabrani, brojPitanja);
     char odgovor;
     FILE* rez = fopen("data/rezultati.txt", "a");
-    if (!rez) { perror("Greška pri otvaranju rezultati.txt"); return; }
+    if (!rez) { perror("Greska pri otvaranju rezultati.txt"); return; }
 
     fprintf(rez, "=== Kviz igraca: %s ===\n", imeIgraca);
 
@@ -253,7 +248,7 @@ void pokreniKviz(Pitanje pitanja[], int brojPitanja, const char* imeIgraca) {
         do {
             printf("Odgovor (A, B, C): ");
             if (scanf(" %c", &odgovor) != 1) {
-                printf("Greška pri unosu.\n");
+                printf("Greska pri unosu.\n");
                 fclose(rez);
                 return;
             }
@@ -262,7 +257,7 @@ void pokreniKviz(Pitanje pitanja[], int brojPitanja, const char* imeIgraca) {
 
         if (odgovor == pitanja[idx].tocni) bodovi++;
 
-        fprintf(rez, "%d. %s | Vaš odgovor: %c | Točno: %c | %s\n",
+        fprintf(rez, "%d. %s | Vas odgovor: %c | Točno: %c | %s\n",
             i + 1, pitanja[idx].pitanje, odgovor, pitanja[idx].tocni,
             (odgovor == pitanja[idx].tocni) ? "Tocno" : "Netocno");
     }
@@ -275,10 +270,9 @@ void pokreniKviz(Pitanje pitanja[], int brojPitanja, const char* imeIgraca) {
     fclose(rez);
 }
 
-// ======= PRIKAZI REZULTATE KORISNIKA =======
 void pokaziRezultate(const char* imeKorisnika) {
     FILE* f = fopen("data/rezultati.txt", "r");
-    if (!f) { perror("Greška pri otvaranju rezultati.txt"); return; }
+    if (!f) { perror("Greska pri otvaranju rezultati.txt"); return; }
 
     char linija[512];
     int pronadjen = 0;
@@ -299,7 +293,7 @@ void pokaziRezultate(const char* imeKorisnika) {
     fclose(f);
 }
 
-// ======= TABLICA REZULTATA =======
+// tablica rezultata
 typedef struct {
     char ime[50];
     int bodovi;
@@ -319,7 +313,7 @@ int usporediRezultate(const void* a, const void* b) {
 
 void tablicaRezultata() {
     FILE* f = fopen("data/rezultati.txt", "r");
-    if (!f) { perror("Greška pri otvaranju rezultati.txt"); return; }
+    if (!f) { perror("Greska pri otvaranju rezultati.txt"); return; }
 
     Rezultat* rezultati = NULL;
     int n = 0;
@@ -332,7 +326,7 @@ void tablicaRezultata() {
                 &r.bodovi, &r.maxBodovi, r.ime, &r.prosjek) == 4) {
                 Rezultat* tmp = realloc(rezultati, (n + 1) * sizeof(Rezultat));
                 if (!tmp) {
-                    perror("Greška realloc");
+                    perror("Greska realloc");
                     free(rezultati);
                     fclose(f);
                     return;
@@ -361,3 +355,4 @@ void tablicaRezultata() {
 
     free(rezultati);
 }
+
